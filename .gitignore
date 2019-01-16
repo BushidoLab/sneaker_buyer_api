@@ -14,3 +14,4 @@ dist/
 
 # Some tests
 tmp/
+yarn\.lock
