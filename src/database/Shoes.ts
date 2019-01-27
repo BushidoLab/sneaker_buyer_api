@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
-import { item } from './Item';
+import { Item } from './Item';
 
-export const Shoes = item.discriminator('shoes', 
+export const Shoes = Item.discriminator('shoes', 
     new Schema({
         shoeSize: { type: 'string', required: true, }
     })

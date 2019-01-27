@@ -2,6 +2,8 @@ import * as mongoose from 'mongoose';
 import { ApolloServer, gql } from 'apollo-server';
 import { importSchema } from 'graphql-import';
 import resolvers from './resolvers';
+import { config } from 'dotenv';
+config();
 
 const start = async () => {
   mongoose.connect(

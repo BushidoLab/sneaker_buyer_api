@@ -1,0 +1,32 @@
+scalar JSON
+
+type Mutation {
+    createItem(product: ProductInput): JSON
+}
+
+input ProductInput {
+    productType: ProductType!
+    title: String!
+    vendor: String!
+    variants: VariantInput
+    purchasePrice: String!
+}
+
+input VariantInput {
+    options: String
+    price: String!
+    sku: String
+}
+
+enum ProductType {
+    PANTS
+    SHOES
+    ACCESSORIES
+    HATS
+    MISC
+}
+
+enum StoreFrontName {
+    SHOPIFY
+    STOCKX
+}
