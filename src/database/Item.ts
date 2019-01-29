@@ -1,10 +1,10 @@
 import { model, Schema } from 'mongoose';
 
+const itemTypes = ['PANTS', 'SHOES', 'ACCESSORIES'];
 const itemSchema = new Schema({
-  id: { type: String, required: true },
-  size: { type: String, required: true },
+  // id: { type: String, required: true },
   // TODO: Expand on available product types (ie: shoes, shirts, hats, accessories)
-  productType: { type: String, required: true },
+  productType: { type: String, enum: [...itemTypes], required: true },
   shopifyProductId: { type: String },
   // Record price for shopify listing
   shopifyListPrice: { type: Number },
@@ -16,8 +16,8 @@ const itemSchema = new Schema({
   // User will declare item's original purchase price. Used later to calculate profit on item.
   purchasePrice: { type: Number, required: true },
   // Record closing price
-  closingPrice: { type: Number, required: true }
+  closingPrice: { type: Number }
   // TODO: Declare which storefront item was finally sold on (ie: Item was sold on Shopify or Stockx)
 });
 
-export const item = model('item', itemSchema);
+export const Item = model('item', itemSchema);

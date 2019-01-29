@@ -1,4 +1,4 @@
 import { model, Schema } from 'mongoose';
-import { item } from './Item';
+import { Item } from './Item';
 
-export const Accessories = item.discriminator('pants', new Schema({}));
+export const Accessories = Item.discriminator('accessories', new Schema({}));

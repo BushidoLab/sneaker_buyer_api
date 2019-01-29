@@ -2,11 +2,13 @@ export interface IAddProduct {
   title: string;
   vendor: string;
   productType: string;
-  variants?: [IVariant];
+  variants?: [IAddVariant];
 }
 
-interface IVariant {
+ export interface IAddVariant {
   option1: string;
   price: string;
   sku: string;
 }
+
+
