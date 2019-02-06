@@ -2,12 +2,12 @@ import * as mongoose from 'mongoose';
 import { ApolloServer, gql } from 'apollo-server';
 import { importSchema } from 'graphql-import';
 import resolvers from './resolvers';
-import { config } from 'dotenv';
-config();
+require('dotenv').config();
+
 
 const start = async () => {
   mongoose.connect(
-    process.env.MONGODB_URI,
+    'mongodb://aman06:1mD45hi7@ds159184.mlab.com:59184/sneakerbuyer',
     { useNewUrlParser: true }
   );
   const port = process.env.PORT || 4000;

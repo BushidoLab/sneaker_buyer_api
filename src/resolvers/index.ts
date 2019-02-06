@@ -4,6 +4,6 @@ import { Subscriptions } from './subscriptions';
 
 export default {
   Query: Queries,
-  Mutations: Mutations,
-  Subscription: Subscriptions
+  Mutation: Mutations
+  // Subscription: Subscriptions
 };
