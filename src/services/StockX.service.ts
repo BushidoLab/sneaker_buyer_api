@@ -12,14 +12,9 @@ export class StockXService extends APIBase {
     });
   }
 
-  public login = async (
-    email: string,
-    password: string
-  ): Promise<Error | any> => {
+  public login = async (email: string, password: string): Promise<Error | any> => {
     try {
-      return this.axios.post('/stage/v1/login', {
-        headers: { email, password }
-      });
+      return this.axios.post('/stage/v1/login', { email, password });
     } catch (error) {
       throw Error(`There was an error logging into StockX: ${error}`);
     }
@@ -31,25 +26,18 @@ export class StockXService extends APIBase {
         headers: { 'jwt-authorization': token }
       });
     } catch (error) {
-      throw Error(
-        `There was an error adding new item to StockX portfolio: ${error}`
-      );
+      throw Error(`There was an error adding new item to StockX portfolio: ${error}`);
     }
   };
 
-  public deletePortfolioItem = async (
-    token: string,
-    id: string
-  ): Promise<Error | any> => {
+  public deletePortfolioItem = async (token: string, id: string): Promise<Error | any> => {
     try {
       return this.axios.delete('/public/v1/portfolio/', {
         headers: { 'jwt-authorization': token },
         params: { id }
       });
     } catch (error) {
-      throw Error(
-        `There was an error deleting portfolio item from StockX: ${error}`
-      );
+      throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
     }
   };
 }
