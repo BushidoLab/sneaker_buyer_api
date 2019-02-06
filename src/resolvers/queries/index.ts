@@ -1,1 +1,5 @@
-export const Queries = {};
+import { Item } from './Item.queries';
+
+export const Queries = {
+  ...Item
+};
