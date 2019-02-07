@@ -1,4 +1,6 @@
 import APIBase from './APIBase';
+// import { * } from 'superagent';
+const request = require('superagent')
 
 export class StockXService extends APIBase {
   constructor() {
@@ -14,11 +16,24 @@ export class StockXService extends APIBase {
 
   public login = async (email: string, password: string): Promise<Error | any> => {
     try {
-      return this.axios.post('/stage/v1/login', { email, password });
-    } catch (error) {
+      // return this.axios.post('/stage/v1/login', { email, password });
+      return request
+      .post(process.env.STOCKX_ENDPOINT + 'login')
+      .send({ email: email, password: password })
+      .set('x-api-key', process.env.STOCKX_API_KEY)
+    }
+    catch (error) {
       throw Error(`There was an error logging into StockX: ${error}`);
     }
   };
+
+  // public login = async (email: string, password: string): Promise<Error | any> => {
+  //   try {
+  //     return this.axios.post('/stage/v1/login', { email, password });
+  //   } catch (error) {
+  //     throw Error(`There was an error logging into StockX: ${error}`);
+  //   }
+  // };
 
   public addPortfolioItem = async (token: string): Promise<Error | any> => {
     try {

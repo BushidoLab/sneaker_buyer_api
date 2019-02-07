@@ -6,6 +6,9 @@ type Query {
 
 type Mutation {
   createItem(product: ProductInput): JSON
+  loginToStockX(email: String password: String): JSON
+  addPortfolioItem(token: String!): JSON
+  deletePortfolioItem(token: String!, id: String! ): JSON
 }
 
 input ProductInput {

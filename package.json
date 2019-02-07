@@ -16,6 +16,7 @@
     "graphql-import": "^0.7.1",
     "mongoose": "^5.4.4",
     "reflect-metadata": "^0.1.12",
+    "superagent": "^4.1.0",
     "ts-lint": "^4.5.1",
     "ts-node": "^7.0.1",
     "type-graphql": "^0.16.0"

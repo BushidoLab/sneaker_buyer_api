@@ -1,6 +1,6 @@
 import { StockXService } from '../../services';
 
-export const StoxkX = {
+export const StockX = {
   async loginToStockX(_, { email, password }) {
     return new StockXService().login(email, password);
   },
@@ -8,9 +8,9 @@ export const StoxkX = {
     return new StockXService().addPortfolioItem(token);
   },
   async deletePortfolioItem(_, { token, id }) {
-    return new StoxkXService().deletePortfolioItem(token, id);
+    return new StockXService().deletePortfolioItem(token, id);
   },
-  async ask(_, { token }) {
-    return new StockXService().ask(token);
-  }
+  // async ask(_, { token }) {
+  //   return new StockXService().ask(token);
+  // }
 };
