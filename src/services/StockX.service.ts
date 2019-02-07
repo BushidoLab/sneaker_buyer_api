@@ -103,4 +103,30 @@ export class StockXService extends APIBase {
     }
   };
 
+  public getProductMarketData = async (query: string): Promise<Error | any> => {
+    try {
+      superagent
+        .get('https://gateway.stockx.com/public/v2/search?query=' + query)
+          .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
+          .set('x-api-key', process.env.STOCKX_API_KEY)
+          .end((err, res) => {
+            if (err) {
+              return err
+            } else {;
+              console.log(res)
+              return res
+            }
+          })
+    } catch (error) {
+      throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
+    }
+    // console.log(inventory)
+  };
+
+
+
+
+
+
+
 }

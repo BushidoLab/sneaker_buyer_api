@@ -24,6 +24,10 @@ export const StockX = {
   async getCurrentSelling(_, { qty }) {
     return new StockXService().getCurrentSelling(qty);
   },
+  // Retrieve inventory of products for sale.
+  async getProductMarketData(_, { name }) {
+    return new StockXService().getProductMarketData(name);
+  },  
   // async ask(_, { token }) {
   //   return new StockXService().ask(token);
   // }
