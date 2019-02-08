@@ -2,7 +2,8 @@ scalar JSON
 
 type Query {
   getItems: JSON
-  getProductMarketData(query: String): JSON
+  queryStockXByString(query: String): JSON
+  queryStockXByStyleAndSize(styleId: String, size: String): JSON
 }
 
 type Mutation {

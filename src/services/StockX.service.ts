@@ -103,7 +103,7 @@ export class StockXService extends APIBase {
     }
   };
 
-  public getProductMarketData = async (query: string): Promise<Error | any> => {
+  public queryStockXByString = async (query: string): Promise<Error | any> => {
     try {
       superagent
         .get('https://gateway.stockx.com/public/v2/search?query=' + query)
@@ -113,7 +113,28 @@ export class StockXService extends APIBase {
             if (err) {
               return err
             } else {;
-              console.log(res)
+              console.log(res.body.hits[0])
+              return res
+            }
+          })
+    } catch (error) {
+      throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
+    }
+    // console.log(inventory)
+  };
+
+  public queryStockXByStyleAndSize = async (styleId: string, size: string): Promise<Error | any> => {
+    try {
+      superagent
+        .get('https://gateway.stockx.com/public/v2/product/lookup?identifier='+ styleId + '&size=' + size)
+        
+          .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
+          .set('x-api-key', process.env.STOCKX_API_KEY)
+          .end((err, res) => {
+            if (err) {
+              return err
+            } else {;
+              console.log(res.body.hits[0])
               return res
             }
           })
