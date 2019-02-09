@@ -126,15 +126,14 @@ export class StockXService extends APIBase {
   public queryStockXByStyleAndSize = async (styleId: string, size: string): Promise<Error | any> => {
     try {
       superagent
-        .get('https://gateway.stockx.com/public/v2/product/lookup?identifier='+ styleId + '&size=' + size)
-        
+        .get('https://gateway.stockx.com/public/product/lookup?identifier='+ styleId + '&size=' + size)
           .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
           .set('x-api-key', process.env.STOCKX_API_KEY)
           .end((err, res) => {
             if (err) {
               return err
             } else {;
-              console.log(res.body.hits[0])
+              console.log(res)
               return res
             }
           })
@@ -143,6 +142,26 @@ export class StockXService extends APIBase {
     }
     // console.log(inventory)
   };
+
+  // This returns market data. You will need the product's uuid and sku to retreive it.
+  public queryStockXMarketData =  async ( productUUID: String, productSKU: String): Promise<Error | any> => {
+    try {
+      superagent
+      .get('https://gateway.stockx.com/public/v1/products/' + productUUID + '/market?children=' + productSKU)
+        .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
+        .set('x-api-key', process.env.STOCKX_API_KEY)
+        .end((err, res) => {
+          if (err) {
+            return err
+          } else {
+            console.log(res.body)
+            return res
+          }
+        })
+      } catch (error) {
+        throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
+      }
+    } 
 
 
 
