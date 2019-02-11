@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 
-const itemTypes = ['PANTS', 'SHOES', 'ACCESSORIES'];
+const itemTypes = ['PANTS', 'SHOES', 'ACCESSORIES', 'MISC'];
 const itemSchema = new Schema({
   // id: { type: String, required: true },
   // TODO: Expand on available product types (ie: shoes, shirts, hats, accessories)
@@ -14,7 +14,7 @@ const itemSchema = new Schema({
   title: { type: String, required: true },
   vendor: { type: String, required: true },
   // User will declare item's original purchase price. Used later to calculate profit on item.
-  purchasePrice: { type: Number, required: true },
+  purchasePrice: { type: String, required: true },
   // Record closing price
   closingPrice: { type: Number }
   // TODO: Declare which storefront item was finally sold on (ie: Item was sold on Shopify or Stockx)
