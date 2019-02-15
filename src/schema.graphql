@@ -5,6 +5,8 @@ type Query {
   queryStockXByString(query: String): JSON
   queryStockXByStyleAndSize(styleId: String, size: String): JSON
   queryStockXMarketData(productUUID: String, productSKU: String): JSON
+  queryStockXByStyleAndAllSizes(styleId: String): JSON
+  queryGetAllShoeData(styleId: String): JSON
 }
 
 type Mutation {

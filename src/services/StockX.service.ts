@@ -127,11 +127,11 @@ export class StockXService extends APIBase {
           .set('x-api-key', process.env.STOCKX_API_KEY)
           .then((err, res) => {
             if (err) {
-              // console.log("Superagent returns an error: ", err)
+              console.log("Superagent returns an error: ", err)
               return response = err
             } else {
-              // console.log("Superagent response: ", res.body)
-              return response.body
+              console.log("Superagent response: ", response.body)
+              return response.body.data.queryStockXByStyleAndSize.text
             }            
           })
           return response
@@ -156,4 +156,90 @@ export class StockXService extends APIBase {
       }
     }; 
 
+    public queryStockXByStyleAndAllSizes = async (styleId: string): Promise<Error | any> => {
+      try {
+        // let possibleSizes = ['3.5','4','4.5','5','5.5','6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','12.5','13','13.5','14','15','16','17','18'];
+        let possibleSizes = ['7','7.5','8','8.5','9'];
+        let collection = [];
+        let object;
+        for (var size in possibleSizes) {
+          let response = await superagent
+            .get('https://gateway.stockx.com/public/product/lookup?identifier='+ styleId + '&size=' + possibleSizes[size])
+              .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
+              .set('x-api-key', process.env.STOCKX_API_KEY)
+              .then((err, res) => {
+                if (err) {
+                  // console.log("Superagent returns an error: ", err)
+                  return response = err
+                } else {
+                  // console.log("Superagent response: ", response.body)
+                  console.log(response)
+                  return res.body.data.queryStockXByStyleAndSize.text
+                }            
+              })
+              let data = JSON.parse(response.text)
+              object = {
+                size: possibleSizes[size],
+                payload: data
+              }
+              // collection.push(await response)
+              collection.push(await object)
+        }
+
+        return collection
+            // console.log(collection)
+      } catch (error) {
+        throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
+      }
+    };
+
+      // This returns market data. You will need the product's uuid and sku to retreive it.
+  public queryGetAllShoeData =  async ( styleId: string): Promise<Error | any> => {
+    try {
+      let result = await this.queryStockXByStyleAndAllSizes(styleId);
+      await console.log(result);
+      return result;
+      } catch (error) {
+        throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
+      }
+    }; 
+
+
+
 }
+
+
+
+// 100% WORKING DONT BREAK
+// public queryStockXByStyleAndAllSizes = async (styleId: string): Promise<Error | any> => {
+//   try {
+//     // let possibleSizes = ['3.5','4','4.5','5','5.5','6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','12.5','13','13.5','14','15','16','17','18'];
+//     let possibleSizes = ['7','7.5','8','8.5','9'];
+//     let collection = [];
+//     for (var size in possibleSizes) {
+//       let response = superagent
+//         .get('https://gateway.stockx.com/public/product/lookup?identifier='+ styleId + '&size=' + possibleSizes[size])
+//           .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
+//           .set('x-api-key', process.env.STOCKX_API_KEY)
+//           .then((err, res) => {
+//             if (err) {
+//               // console.log("Superagent returns an error: ", err)
+//               return response = err
+//             } else {
+//               // console.log("Superagent response: ", response.body)
+//               return response.body.data.queryStockXByStyleAndSize.text
+//             }            
+//           })
+//           collection.push(await response)
+//           // console.log(response)
+//           this.justASimpleConsoleLog();
+//           // return collection
+//           // return response
+//     }
+
+//     return collection
+//         // console.log(collection)
+//   } catch (error) {
+//     throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
+//   }
+// };

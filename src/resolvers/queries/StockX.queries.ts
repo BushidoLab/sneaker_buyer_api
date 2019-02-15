@@ -13,5 +13,10 @@ export const StockX = {
     async queryStockXMarketData(_, { productUUID, productSKU}) {
         return new StockXService().queryStockXMarketData(productUUID, productSKU);
     },
-
+    async queryStockXByStyleAndAllSizes(_, { styleId}) {
+        return new StockXService().queryStockXByStyleAndAllSizes(styleId);
+    },
+    async queryGetAllShoeData(_, { styleId}) {
+        return new StockXService().queryGetAllShoeData(styleId);
+    },
 };
