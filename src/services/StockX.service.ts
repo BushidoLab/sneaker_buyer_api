@@ -196,9 +196,21 @@ export class StockXService extends APIBase {
       // This returns market data. You will need the product's uuid and sku to retreive it.
   public queryGetAllShoeData =  async ( styleId: string): Promise<Error | any> => {
     try {
-      let result = await this.queryStockXByStyleAndAllSizes(styleId);
-      await console.log(result);
-      return result;
+      let shoeData;
+      let shoeDataArray = [];
+      let valueAndSizes = await this.queryStockXByStyleAndAllSizes(styleId);
+      for (let i = 0; i < valueAndSizes.length; i++) {
+        let UUID = valueAndSizes[i].payload.data[0].attributes.product_uuid;
+        let SKU = valueAndSizes[i].payload.data[0].id;
+        let marketData = await this.queryStockXMarketData(UUID, SKU)
+        let shoeData = {
+          size: valueAndSizes[i].size,
+          data: marketData
+        }
+        // console.log(shoeData)
+        shoeDataArray.push(shoeData)
+      }
+      return shoeDataArray
       } catch (error) {
         throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
       }
