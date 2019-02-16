@@ -18,11 +18,11 @@ export class StockXService extends APIBase {
     let loginResponse;
     try {
       // return this.axios.post('/stage/v1/login', { email, password });
-      superagent
+      let response = superagent
       .post(process.env.STOCKX_ENDPOINT + 'login')
       .send({ email: email, password: password })
       .set('x-api-key', process.env.STOCKX_API_KEY)
-      .end((err, res) => {
+      .then((err, res) => {
         if (err) {
           return err
         } else {
@@ -30,6 +30,7 @@ export class StockXService extends APIBase {
           return loginResponse;
         }
       })
+      return response
     }
     catch (error) {
       throw Error(`There was an error logging into StockX: ${error}`);
@@ -58,45 +59,23 @@ export class StockXService extends APIBase {
     }
   };
 
-  public getCurrentSelling = async (qty: string): Promise<Error | any> => {
-    let inventory;
-    try {
-      return superagent
-        .get('https://gateway.stockx.com/public/v1/customers/484296/selling/current?limit=100')
-        // .get(`${URL}/v1/customers/${customerId}/selling/current?limit=500`)
-        .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
-        .set('x-api-key', process.env.STOCKX_API_KEY)
-        .end((err, res) => {
-          if (err) {
-            return err
-          } else {
-            inventory = res.body;
-            return inventory;
-            // console.log(res.body)
-          }
-        })
-    } catch (error) {
-      throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
-    }
-    // console.log(inventory)
-  };
-
   public loginWithEnv = async (email: string): Promise<Error | any> => {
-    let loginResponse;
     try {
-      // return this.axios.post('/stage/v1/login', { email, password });
-      superagent
-      .post(process.env.STOCKX_ENDPOINT + 'login')
+      let response = await superagent
+      .post("https://gateway.stockx.com/sandbox/v1/" + 'login')
       .send({ email: process.env.STOCKX_EMAIL, password: process.env.STOCKX_PASSWORD })
       .set('x-api-key', process.env.STOCKX_API_KEY)
-      .end((err, res) => {
+      .then((err, res) => {
         if (err) {
           return err
         } else {
-          loginResponse = res.header['jwt-authorization'];
-          return loginResponse;
+          // loginResponse = res.header['jwt-authorization'];
+          // console.log(res)
+          return res
         }
       })
+      console.log(response.body)
+      return response;
     }
     catch (error) {
       throw Error(`There was an error logging into StockX: ${error}`);
@@ -215,6 +194,33 @@ export class StockXService extends APIBase {
         throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
       }
     }; 
+    
+    public getCurrentSelling = async (qty: string): Promise<Error | any> => {
+      let inventory;
+      try {
+        let response = await superagent
+          .get('https://gateway.stockx.com/public/v1/customers/484296/selling/current?limit=500')
+          // .get(`${URL}/v1/customers/${customerId}/selling/current?limit=500`)
+          .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
+          .set('x-api-key', process.env.STOCKX_API_KEY)
+          .then((err, res) => {
+            if (err) {
+              return err
+            } else {
+              // console.log(res)
+              // console.log(res.body)
+              return res
+            }
+          })
+          // console.log(await response.body.text)
+          return response.body
+      } catch (error) {
+        throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
+      }
+      // console.log(inventory)
+    };
+
+
 
 
 

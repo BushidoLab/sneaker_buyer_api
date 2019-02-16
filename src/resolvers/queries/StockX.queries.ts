@@ -19,4 +19,11 @@ export const StockX = {
     async queryGetAllShoeData(_, { styleId}) {
         return new StockXService().queryGetAllShoeData(styleId);
     },
+    // Retrieve inventory of products for sale.
+    async getCurrentSelling(_, { qty }) {
+        return new StockXService().getCurrentSelling(qty);
+    },
+    async loginToStockXWithEnv(_, { email }) {
+        return new StockXService().loginWithEnv(email);
+    },
 };

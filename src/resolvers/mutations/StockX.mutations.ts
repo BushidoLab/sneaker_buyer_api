@@ -17,13 +17,13 @@ export const StockX = {
   // Log-in to StockX with .ENV variables
   // TEMPORARY FUNCTION
   // Returns JWT-AUTH token
-  async loginToStockXWithEnv(_, { email }) {
-    return new StockXService().loginWithEnv(email);
-  },
-  // Retrieve inventory of products for sale.
-  async getCurrentSelling(_, { qty }) {
-    return new StockXService().getCurrentSelling(qty);
-  },
+  // async loginToStockXWithEnv(_, { email }) {
+  //   return new StockXService().loginWithEnv(email);
+  // },
+  // // Retrieve inventory of products for sale.
+  // async getCurrentSelling(_, { qty }) {
+  //   return new StockXService().getCurrentSelling(qty);
+  // },
   // Retrieve inventory of products for sale.
   // async getProductMarketData(_, { name }) {
   //   return new StockXService().getProductMarketData(name);
