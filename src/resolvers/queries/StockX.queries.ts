@@ -3,7 +3,7 @@ import { StockXService } from '../../services';
 export const StockX = {
 
     async queryStockXByString(_, { query }) {
-        new StockXService().queryStockXByString(query);
+        return new StockXService().queryStockXByString(query);
     },
 
     async queryStockXByStyleAndSize(_, { styleId, size }) {
@@ -11,11 +11,12 @@ export const StockX = {
     },
 
     async queryStockXMarketData(_, { productUUID, productSKU}) {
-        new StockXService().queryStockXMarketData(productUUID, productSKU);
-    }
-
+        return new StockXService().queryStockXMarketData(productUUID, productSKU);
+    },
+    async queryStockXByStyleAndAllSizes(_, { styleId}) {
+        return new StockXService().queryStockXByStyleAndAllSizes(styleId);
+    },
+    async queryGetAllShoeData(_, { styleId}) {
+        return new StockXService().queryGetAllShoeData(styleId);
+    },
 };
-
-// ```const response = await new StockXService().getCurrentSelling(qty);
-// console.log(response)
-// return response;```
