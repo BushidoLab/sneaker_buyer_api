@@ -18,6 +18,8 @@ type Mutation {
   addPortfolioItem(token: String!): JSON
   deletePortfolioItem(token: String!, id: String! ): JSON
   getProductMarketData(name: String): JSON
+  createSellOrder(qty: String, expiresAt: String, productSKU: String): JSON
+  createPortfolioItem(qty: String, expiresAt: String, productSKU: String): JSON
 }
 
 input ProductInput {

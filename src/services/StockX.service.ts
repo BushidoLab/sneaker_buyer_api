@@ -199,7 +199,7 @@ export class StockXService extends APIBase {
       let inventory;
       try {
         let response = await superagent
-          .get('https://gateway.stockx.com/public/v1/customers/484296/selling/current?limit=500')
+          .get('https://gateway.stockx.com/sandbox/v1/customers/484296/selling/current?limit=500')
           // .get(`${URL}/v1/customers/${customerId}/selling/current?limit=500`)
           .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
           .set('x-api-key', process.env.STOCKX_API_KEY)
@@ -220,9 +220,52 @@ export class StockXService extends APIBase {
       // console.log(inventory)
     };
 
+  public createSellOrder = async (qty: string, expiresAt: string, productSKU: String): Promise<Error | any> => {
+    let inventory;
+    try {
+      let response = await superagent
+        .post('https://gateway.stockx.com/sandbox/v1/portfolio/ask')
+        .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
+        .set('x-api-key', process.env.STOCKX_API_KEY)
+        .send({
+          "PortfolioItem": {
+            "amount":     qty,
+            "expiresAt":  expiresAt,
+            "skuUuid":    productSKU
+          }
+        })
+        .then((res) => {
+          console.log(res)
+        })
+        return response
+    } catch (error) {
+      throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
+    }
+  };
 
 
-
+  // https://gateway.stockx.com/public/v1/portfolio
+  public createPortfolioItem = async (qty: string, expiresAt: string, productSKU: String): Promise<Error | any> => {
+    try {
+      let response = await superagent
+        .post('https://gateway.stockx.com/stage/v1/portfolio/ask')
+        .set('jwt-authorization', process.env.STOCKX_API_JWT_TOKEN)
+        .set('x-api-key', process.env.STOCKX_API_KEY)
+        .send({
+          "PortfolioItem": {
+            "amount":     qty,
+            "expiresAt":  expiresAt,
+            "skuUuid":    productSKU
+          }
+        })
+        .then((res) => {
+          console.log(res)
+        })
+        return response
+    } catch (error) {
+      throw Error(`There was an error deleting portfolio item from StockX: ${error}`);
+    }
+  };
 
 }
 

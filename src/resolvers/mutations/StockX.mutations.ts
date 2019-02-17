@@ -14,21 +14,11 @@ export const StockX = {
   async deletePortfolioItem(_, { token, id }) {
     return new StockXService().deletePortfolioItem(token, id);
   },
-  // Log-in to StockX with .ENV variables
-  // TEMPORARY FUNCTION
-  // Returns JWT-AUTH token
-  // async loginToStockXWithEnv(_, { email }) {
-  //   return new StockXService().loginWithEnv(email);
-  // },
-  // // Retrieve inventory of products for sale.
-  // async getCurrentSelling(_, { qty }) {
-  //   return new StockXService().getCurrentSelling(qty);
-  // },
-  // Retrieve inventory of products for sale.
-  // async getProductMarketData(_, { name }) {
-  //   return new StockXService().getProductMarketData(name);
-  // },  
-  // async ask(_, { token }) {
-  //   return new StockXService().ask(token);
-  // }
+  async createSellOrder(_, { qty, expiresAt, productSKU}) {
+    return new StockXService().createSellOrder(qty, expiresAt, productSKU);
+  },
+  async createPortfolioItem(_, { qty, expiresAt, productSKU}) {
+    return new StockXService().createPortfolioItem(qty, expiresAt, productSKU);
+  },
+
 };
