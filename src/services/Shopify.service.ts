@@ -22,6 +22,20 @@ export class ShopifyService extends APIBase {
     }
   }
 
+  public shopifyGetAllProducts = async (qty: String): Promise<Error | any> => {
+    try {
+      // return await this.axios.get(`/admin/products.json`)
+      let response =  await this.axios.get(`/admin/products.json`)
+      console.log("Here is the resoponse from Shopify", response.data)
+      // inventory_item: { ...inventoryItem });
+      return response.data
+    } catch (error) {
+      throw Error(`There was an errpr upating inventory item ${error}`);
+    }
+  }
+  // /admin/inventory_items.json
+
+
   public addNewProduct = async (product: IAddProduct): Promise<Error | any> => {
     try {
       const body = {
@@ -32,7 +46,8 @@ export class ShopifyService extends APIBase {
           body_html: '<strong>test!</strong>'
         }
       };
-      return this.axios.post('/admin/products.json', body);
+      let response = await this.axios.post('/admin/products.json', body);
+      return response.data
     } catch (error) {
       throw Error(`There was an error adding a product to Shopify: ${error}`);
     }

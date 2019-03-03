@@ -9,6 +9,7 @@ type Query {
   queryGetAllShoeData(styleId: String): JSON
   getCurrentSelling(qty: String): JSON
   loginToStockXWithEnv(email: String): JSON
+  shopifyGetAllProducts(qty: String): JSON
 }
 
 type Mutation {
