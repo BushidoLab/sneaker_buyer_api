@@ -7,16 +7,20 @@ type Query {
   queryStockXMarketData(productUUID: String, productSKU: String): JSON
   queryStockXByStyleAndAllSizes(styleId: String): JSON
   queryGetAllShoeData(styleId: String): JSON
+  getCurrentSelling(qty: String): JSON
+  loginToStockXWithEnv(email: String): JSON
+  shopifyGetAllProducts(qty: String): JSON
 }
 
 type Mutation {
   createItem(product: ProductInput): JSON
   loginToStockX(email: String password: String): JSON
-  loginToStockXWithEnv(email: String): JSON
+  # loginToStockXWithEnv(email: String): JSON
   addPortfolioItem(token: String!): JSON
   deletePortfolioItem(token: String!, id: String! ): JSON
-  getCurrentSelling(qty: String): JSON
   getProductMarketData(name: String): JSON
+  createSellOrder(qty: String, expiresAt: String, productSKU: String): JSON
+  createPortfolioItem(qty: String, expiresAt: String, productSKU: String): JSON
 }
 
 input ProductInput {
